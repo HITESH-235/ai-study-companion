@@ -489,3 +489,39 @@ strong {
   }
 }
 
+.response {
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+.response h1,
+.response h2,
+.response h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.response p {
+  margin-bottom: 12px;
+}
+
+.response ul {
+  padding-left: 20px;
+  margin-bottom: 12px;
+}
+
+.response li {
+  margin-bottom: 6px;
+}
+
+.card {
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.response {
+  white-space: normal;
+  word-break: break-word;
+}
