@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
+CORS(app)  # keep open for now
 
 client = None
 
@@ -28,11 +28,12 @@ def home():
 
 @app.route("/ai", methods=["POST"])
 def generate_ai():
-    data = request.json
-    topic = data.get("topic")
+    data = request.get_json(silent=True)
 
-    if not topic:
-        return jsonify({"error": "No topic provided"}), 400
+    if not data or "topic" not in data:
+        return jsonify({"error": "Invalid request"}), 400
+
+    topic = data["topic"]
 
     try:
         groq_client = get_client()
@@ -40,10 +41,7 @@ def generate_ai():
         completion = groq_client.chat.completions.create(
             model="llama-3.1-8b-instant",
             messages=[
-                {
-                    "role": "user",
-                    "content": f"Explain {topic} clearly with headings and bullet points."
-                }
+                {"role": "user", "content": f"Explain {topic} clearly with headings and bullet points."}
             ]
         )
 
@@ -51,10 +49,10 @@ def generate_ai():
             "response": completion.choices[0].message.content
         })
 
-    except Exception as e:
+    except Exception:
         import traceback
         traceback.print_exc()
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error": "Internal server error"}), 500
 
 
 if __name__ == "__main__":
