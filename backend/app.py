@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)  # keep open for now
+CORS(app, origins=["https://ai-study-companion-dusky.vercel.app"])
 
 client = None
 
