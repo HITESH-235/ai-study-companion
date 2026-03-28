@@ -11,13 +11,16 @@ CORS(app)
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
-if not GROQ_API_KEY: raise ValueError("GROQ_API_KEY is missing")
+if not GROQ_API_KEY:
+    raise ValueError("GROQ_API_KEY is missing")
 
 client = Groq(api_key=GROQ_API_KEY)
+
 
 @app.route("/")
 def home():
     return "API is running"
+
 
 @app.route("/ai", methods=["POST"])
 def generate_ai():
@@ -31,7 +34,10 @@ def generate_ai():
         completion = client.chat.completions.create(
             model="llama-3.1-8b-instant",
             messages=[
-                {"role": "user", "content": f"Explain {topic} clearly with headings and bullet points."}
+                {
+                    "role": "user",
+                    "content": f"Explain {topic} clearly with headings and bullet points."
+                }
             ]
         )
 
@@ -46,4 +52,5 @@ def generate_ai():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    port = int(os.environ.get("PORT", 5000))  # ✅ important fix
+    app.run(host="0.0.0.0", port=port)
