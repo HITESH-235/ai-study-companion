@@ -62,7 +62,7 @@ export default function AITools() {
             {/* response from api */}
             {response && (
                 <div className="card response">
-                    <h3>AI Explanation</h3>
+                    {/* <h3>AI Explanation</h3> */}
                     <ReactMarkdown>{response}</ReactMarkdown>
                 </div>
             )}
