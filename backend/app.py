@@ -20,40 +20,12 @@ def get_client():
         client = Groq(api_key=api_key)
     return client
 
+
 @app.route("/")
 def home():
     return "API is running"
 
 
-@app.route("/ai", methods=["POST"])
-def generate_ai():
-    data = request.json
-    topic = data.get("topic")
-
-    if not topic:
-        return jsonify({"error": "No topic provided"}), 400
-
-    try:
-        completion = client.chat.completions.create(
-            model="llama-3.1-8b-instant",
-            messages=[
-                {
-                    "role": "user",
-                    "content": f"Explain {topic} clearly with headings and bullet points."
-                }
-            ]
-        )
-
-        return jsonify({
-            "response": completion.choices[0].message.content
-        })
-
-    except Exception as e:
-        import traceback
-        traceback.print_exc()
-        return jsonify({"error": str(e)}), 500
-    
-    
 @app.route("/ai", methods=["POST"])
 def generate_ai():
     data = request.json
@@ -84,6 +56,7 @@ def generate_ai():
         traceback.print_exc()
         return jsonify({"error": str(e)}), 500
 
+
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # ✅ important fix
+    port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
