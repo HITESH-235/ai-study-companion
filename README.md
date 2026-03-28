@@ -217,12 +217,6 @@ VITE_API_URL=https://your-backend-url
 
 ---
 
-## 📸 Screenshots
-
-*Add screenshots here*
-
----
-
 ## 📄 License
 
 This project is for educational purposes.
