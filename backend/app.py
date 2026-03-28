@@ -57,6 +57,13 @@ def generate_ai():
         return jsonify({"error": str(e)}), 500
 
 
+@app.route("/debug")
+def debug():
+    return {
+        "GROQ_API_KEY": repr(os.getenv("GROQ_API_KEY")),
+        "ALL_ENV_KEYS": list(os.environ.keys())
+    }
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
