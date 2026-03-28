@@ -9,13 +9,16 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+client = None
 
-if not GROQ_API_KEY:
-    raise ValueError("GROQ_API_KEY is missing")
-
-client = Groq(api_key=GROQ_API_KEY)
-
+def get_client():
+    global client
+    if client is None:
+        api_key = os.getenv("GROQ_API_KEY")
+        if not api_key:
+            raise RuntimeError("GROQ_API_KEY not found at runtime")
+        client = Groq(api_key=api_key)
+    return client
 
 @app.route("/")
 def home():
