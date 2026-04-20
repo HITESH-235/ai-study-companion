@@ -17,7 +17,7 @@ A full-stack AI-powered study assistant that helps you generate structured expla
 ## 🌐 Live Demo
 
 Check out the live application hosted on Render:  
-🔗 **[ai-study-companion-dusky.vercel.app](ai-study-companion-dusky.vercel.app)**
+🔗 **[ai-study-companion-dusky.vercel.app](https://ai-study-companion-dusky.vercel.app)**
 
 ---
 
